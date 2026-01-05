@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shaolin x32: PID</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { background:#121212; color:white; font-family:sans-serif; padding:20px; }
+        .row { margin: 15px 0; display:flex; justify-content: space-between; align-items: center; }
+        input { background:#333; border:1px solid #555; color:white; padding:8px; width:80px; text-align:center; }
+        button { background:#007bff; color:white; border:none; padding:15px; width:100%; border-radius:5px; font-size:16px; margin-top:20px; }
+    </style>
+</head>
+<body>
+    <h3>Ajustes de Estabilização</h3>
+    <div id="settings">
+        <h4>Pitch (Inclinação)</h4>
+        <div class="row">Kp: <input type="number" step="0.1" id="kpp"></div>
+        <div class="row">Ki: <input type="number" step="0.01" id="kip"></div>
+        <div class="row">Kd: <input type="number" step="0.1" id="kdp"></div>
+        <hr>
+        <h4>Roll (Rolagem)</h4>
+        <div class="row">Kp: <input type="number" step="0.1" id="kpr"></div>
+        <div class="row">Ki: <input type="number" step="0.01" id="kir"></div>
+        <div class="row">Kd: <input type="number" step="0.1" id="kdr"></div>
+    </div>
+    <button onclick="savePID()">SALVAR NO DRONE</button>
+    <button style="background:#444" onclick="location.href='/'">VOLTAR</button>
+
+    <hr>
+    <h4>Orientação do MPU6050</h4>
+    <select id="rotation" onchange="saveRotation()">
+        <option value="0">Padrão (0°)</option>
+        <option value="90">Girar 90° Direita</option>
+        <option value="180">Girar 180°</option>
+        <option value="270">Girar 90° Esquerda</option>
+    </select>
+
+    <script>
+    function saveRotation() {
+        fetch('/setRotation?r=' + document.getElementById('rotation').value);
+    }
+    </script>
+
+    <script>
+        // Carrega valores atuais ao abrir
+        fetch('/getPID').then(r => r.json()).then(data => {
+            document.getElementById('kpp').value = data.kpp;
+            document.getElementById('kip').value = data.kip;
+            document.getElementById('kdp').value = data.kdp;
+            document.getElementById('kpr').value = data.kpr;
+            document.getElementById('kir').value = data.kir;
+            document.getElementById('kdr').value = data.kdr;
+        });
+
+        function savePID() {
+            let url = `/savePID?kpp=${document.getElementById('kpp').value}&kip=${document.getElementById('kip').value}&kdp=${document.getElementById('kdp').value}&kpr=${document.getElementById('kpr').value}&kir=${document.getElementById('kir').value}&kdr=${document.getElementById('kdr').value}`;
+            fetch(url).then(() => alert("Ganhos atualizados!"));
+        }
+    </script>
+</body>
+</html>

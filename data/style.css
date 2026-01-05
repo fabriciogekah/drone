@@ -1,0 +1,133 @@
+/* Configurações Gerais - Impede que o celular tente dar zoom ou rolar a página enquanto você voa */
+* {
+    box-sizing: border-box;
+    -webkit-touch-callout: none; /* Impede o menu de "copiar" ao segurar */
+    -webkit-user-select: none;   /* Impede seleção de texto */
+    user-select: none;
+    touch-action: none;          /* Bloqueia o scroll do navegador */
+}
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Container Principal */
+#container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Zonas dos Joysticks */
+.joystick-zone {
+    width: 35%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Base QUADRADA, CARAIO do Joystick */
+.joystick-base {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #222 0%, #1a1a1a 100%);
+    border: 4px solid #333;
+    border-radius: 10%;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* O Stick (a "manete") */
+.stick {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #444 0%, #222 100%);
+    border: 2px solid #555;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    z-index: 10;
+    pointer-events: none; /* O toque é registrado na zona, não no stick */
+}
+
+/* Painel Central de Menu */
+#menu {
+    width: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(40, 40, 40, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #444;
+}
+
+#mode-display {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #007bff;
+    text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Botões */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+button {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:active {
+    background: #007bff;
+    border-color: #00d4ff;
+}
+
+.action-btn {
+    width: 100%;
+    background: #444;
+}
+
+/* Estilo específico para Calibração (Alerta) */
+button[onclick="calibrate()"] {
+    color: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
+button[onclick="calibrate()"]:active {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* Ajustes para Telas Muito Pequenas */
+@media (max-height: 300px) {
+    .joystick-base { width: 140px; height: 140px; }
+    .stick { width: 40px; height: 40px; top: calc(50% - 20px); left: calc(50% - 20px); }
+    h2 { font-size: 1rem; }
+}

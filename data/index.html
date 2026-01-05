@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shaolin x32: Controle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div class="joystick-zone" id="zone-left">
+            <div class="joystick-base"><div id="stick-left" class="stick"></div></div>
+        </div>
+
+        <div id="menu">
+            <h2 id="mode-display">OFF</h2>
+            <div class="btn-group">
+                <button onclick="sendMode(0)">OFF</button>
+                <button onclick="sendMode(1)">ON</button>
+                <button onclick="sendMode(2)">HYBRID</button>
+            </div>
+
+            <button id="armBtn" class="action-btn" style="background: #ff4d4d;" onclick="toggleArm()">ARMAR</button>
+
+
+            <div id="telemetry">
+            PITCH: <span id="valP">0</span>° | ROLL: <span id="valR">0</span>°
+            </div>
+            <button class="action-btn" onclick="calibrate()">CALIBRAR</button>
+            <button class="action-btn" onclick="location.href='/pid.html'">AJUSTES PID</button>    
+        </div>
+        
+        <div class="joystick-zone" id="zone-right">
+            <div class="joystick-base"><div id="stick-right" class="stick"></div></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
